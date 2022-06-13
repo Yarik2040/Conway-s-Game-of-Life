@@ -12,6 +12,20 @@ def new_field():
     return [[0] * WIDTH for i in range(HEIGHT)]
 
 
+# new field with 'airforce' pattern
+def airforce():
+    field = new_field()
+    sx = HEIGHT / 2
+    sy = WIDTH / 2
+    field[sx - 1][sy - 1] = 1
+    field[sx - 1][sy] = 1
+    field[sx][sy - 1] = 1
+    field[sx + 1][sy + 2] = 1
+    field[sx + 1][sy + 1] = 1
+    field[sx][sy + 2] = 1
+    return field
+
+
 # описывает правила раскраски пикселей
 def color(nei_num):
     if nei_num <= 2 or nei_num >= 7:
