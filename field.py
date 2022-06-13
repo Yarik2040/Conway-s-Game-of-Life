@@ -27,10 +27,15 @@ def airforce():
 
 
 # описывает правила раскраски пикселей
-def color(nei_num):
-    if nei_num <= 2 or nei_num >= 7:
-        return 1
-    return 0
+def color(nei_num, cur_color):
+    if cur_color == 1:
+        if nei_num == 2 or nei_num == 3:
+            return 1
+        return 0
+    else:
+        if nei_num == 3:
+            return 1
+        return 0
 
 
 # строит следующую итерацию поля по текущей
@@ -43,5 +48,5 @@ def get_new_iteration(field):
                 for y in range(j - 1, j + 2):
                     if 0 <= x < HEIGHT and 0 <= y < WIDTH:
                         nei_num += 1
-            n_field[i][j] = color(nei_num)
+            n_field[i][j] = color(nei_num, field[i][j])
     return n_field
