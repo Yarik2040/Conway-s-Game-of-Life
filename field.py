@@ -22,6 +22,7 @@ def random_field():
             field[x][y] = randint(0, 1)
     return field
 
+
 # new field with 'airforce' pattern
 def airforce(dx=0, dy=0):
     field = new_field()
@@ -46,8 +47,35 @@ def glider(dx=0, dy=0):
     field[sx + 1][sy + 0] = 1
     field[sx + 1][sy + 1] = 1
     field[sx + 2][sy + 2] = 1
+    return field
 
 
+# new field with "snowflake" pattern
+def snowflake(dx=0, dy=0):
+    field = new_field()
+    sx = HEIGHT // 2 + dx
+    sy = WIDTH // 2 + dy
+    field[sx][sy] = 1
+    field[sx][sy + 1] = 1
+    field[sx][sy + 2] = 1
+
+    field[sx - 1][sy + 1] = 1
+    field[sx - 2][sy + 1] = 1
+    field[sx - 3][sy + 1] = 1
+    field[sx - 3][sy] = 1
+    field[sx - 3][sy - 1] = 1
+    field[sx - 3][sy - 2] = 1
+    field[sx - 2][sy - 2] = 1
+    field[sx - 4][sy - 2] = 1
+
+    field[sx + 1][sy + 1] = 1
+    field[sx + 2][sy + 1] = 1
+    field[sx + 3][sy + 1] = 1
+    field[sx + 3][sy] = 1
+    field[sx + 3][sy - 1] = 1
+    field[sx + 3][sy - 2] = 1
+    field[sx + 2][sy - 2] = 1
+    field[sx + 4][sy - 2] = 1
     return field
 
 

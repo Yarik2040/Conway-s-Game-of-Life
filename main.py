@@ -2,10 +2,10 @@ import pygame
 from field import *
 
 pygame.init()
-
+ 
 sc = pygame.display.set_mode((1280, 720))
 clock = pygame.time.Clock()
-fld = random_field() # airforce()
+fld = snowflake() # airforce()
 generate_new_field = 0
 speed = 10
 speed_add = 10
