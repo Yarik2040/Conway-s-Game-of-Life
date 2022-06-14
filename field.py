@@ -17,65 +17,62 @@ def new_field():
 # создаёт случайное поле
 def random_field():
     field = new_field()
-    for x in range(HEIGHT):
-        for y in range(WIDTH):
-            field[x][y] = randint(0, 1)
+    for y in range(HEIGHT):
+        for x in range(WIDTH):
+            field[y][x] = randint(0, 1)
     return field
 
 
 # new field with 'airforce' pattern
-def airforce(dx=0, dy=0):
-    field = new_field()
-    sx = HEIGHT // 2 + dx
-    sy = WIDTH // 2 + dy
-    field[sx - 1][sy - 1] = 1
-    field[sx - 1][sy] = 1
-    field[sx][sy - 1] = 1
-    field[sx + 1][sy + 2] = 1
-    field[sx + 1][sy + 1] = 1
-    field[sx][sy + 2] = 1
+def airforce(field, dx=0, dy=0):
+    sx = WIDTH // 2 + dx
+    sy = HEIGHT // 2 + dy
+    field[sy - 1][sx - 1] = 1
+    field[sy][sx - 1] = 1
+    field[sy - 1][sx] = 1
+    field[sy + 2][sx + 1] = 1
+    field[sy + 1][sx + 1] = 1
+    field[sy + 2][sx] = 1
     return field
 
 
 # new field with simple glider
-def glider(dx=0, dy=0):
-    field = new_field()
-    sx = HEIGHT // 2 + dx
-    sy = WIDTH // 2 + dy
-    field[sx + 0][sy + 1] = 1
-    field[sx + 0][sy + 2] = 1
-    field[sx + 1][sy + 0] = 1
-    field[sx + 1][sy + 1] = 1
-    field[sx + 2][sy + 2] = 1
+def glider(field, dx=0, dy=0):
+    sx = WIDTH // 2 + dx
+    sy = HEIGHT // 2 + dy
+    field[sy + 1][sx + 0] = 1
+    field[sy + 2][sx + 0] = 1
+    field[sy + 0][sx + 1] = 1
+    field[sy + 1][sx + 1] = 1
+    field[sy + 2][sx + 2] = 1
     return field
 
 
 # new field with "snowflake" pattern
-def snowflake(dx=0, dy=0):
-    field = new_field()
-    sx = HEIGHT // 2 + dx
-    sy = WIDTH // 2 + dy
-    field[sx][sy] = 1
-    field[sx][sy + 1] = 1
-    field[sx][sy + 2] = 1
+def snowflake(field, dx=0, dy=0):
+    sx = WIDTH // 2 + dx
+    sy = HEIGHT // 2 + dy
+    field[sy][sx] = 1
+    field[sy + 1][sx] = 1
+    field[sy + 2][sx] = 1
 
-    field[sx - 1][sy + 1] = 1
-    field[sx - 2][sy + 1] = 1
-    field[sx - 3][sy + 1] = 1
-    field[sx - 3][sy] = 1
-    field[sx - 3][sy - 1] = 1
-    field[sx - 3][sy - 2] = 1
-    field[sx - 2][sy - 2] = 1
-    field[sx - 4][sy - 2] = 1
+    field[sy + 1][sx - 1] = 1
+    field[sy + 1][sx - 2] = 1
+    field[sy + 1][sx - 3] = 1
+    field[sy][sx - 3] = 1
+    field[sy - 1][sx - 3] = 1
+    field[sy - 2][sx - 3] = 1
+    field[sy - 2][sx - 2] = 1
+    field[sy - 2][sx - 4] = 1
 
-    field[sx + 1][sy + 1] = 1
-    field[sx + 2][sy + 1] = 1
-    field[sx + 3][sy + 1] = 1
-    field[sx + 3][sy] = 1
-    field[sx + 3][sy - 1] = 1
-    field[sx + 3][sy - 2] = 1
-    field[sx + 2][sy - 2] = 1
-    field[sx + 4][sy - 2] = 1
+    field[sy + 1][sx + 1] = 1
+    field[sy + 1][sx + 2] = 1
+    field[sy + 1][sx + 3] = 1
+    field[sy][sx + 3] = 1
+    field[sy - 1][sx + 3] = 1
+    field[sy - 2][sx + 3] = 1
+    field[sy - 2][sx + 2] = 1
+    field[sy - 2][sx + 4] = 1
     return field
 
 
@@ -94,13 +91,13 @@ def color(nei_num, cur_color):
 # строит следующую итерацию поля по текущей
 def get_new_iteration(field):
     n_field = new_field()
-    for i in range(HEIGHT):
-        for j in range(WIDTH):
+    for j in range(HEIGHT):
+        for i in range(WIDTH):
             nei_num = 0
             for x in range(i - 1, i + 2):
                 for y in range(j - 1, j + 2):
-                    if 0 <= x < HEIGHT and 0 <= y < WIDTH and field[x][y] == 1:
+                    if 0 <= y < HEIGHT and 0 <= x < WIDTH and field[y][x] == 1:
                         nei_num += 1
-            nei_num -= field[i][j]
-            n_field[i][j] = color(nei_num, field[i][j])
+            nei_num -= field[j][i]
+            n_field[j][i] = color(nei_num, field[j][i])
     return n_field
